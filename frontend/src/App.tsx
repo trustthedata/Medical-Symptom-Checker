@@ -6,15 +6,28 @@ import axios from "axios";
 const TOKEN = process.env.REACT_APP_ACCESS_TOKEN;
 const language = "en-gb";
 
-class App extends Component {
-  state = {
-    symptoms: []
-    // selectedSymptoms: {
-    //   name: {
-    //     checked: false
-    //   }
-    // }
-  };
+interface ISymptoms {
+  Name: string;
+  ID: number;
+}
+
+interface IAppProps {}
+
+interface IAppState {
+  symptoms: ISymptoms[];
+}
+class App extends Component<IAppProps, IAppState> {
+  constructor(props: IAppProps) {
+    super(props);
+    this.state = {
+      symptoms: []
+      // selectedSymptoms: {
+      //   name: {
+      //     checked: false
+      //   }
+      // }
+    };
+  }
 
   // componentWillMount = () => {
   //   this.selectedCheckboxes = new Set();
@@ -55,7 +68,7 @@ class App extends Component {
       .catch(err => console.log(err));
   };
 
-  handleInputChange = event => {
+  handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     console.log(event.target);
     const { name, value } = event.target;
     // const newState = Object.assign({}, this.state);
